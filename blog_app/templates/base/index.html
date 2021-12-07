@@ -40,9 +40,6 @@
 						<h4 class="card-text">{{post.post|truncatewords:15}}.</h4>
 						<div class="metafooter">
 							<div class="wrapfooter">
-								<span class="meta-footer-thumb">
-								<a href="{% url 'profile' post.author.id %}"><img class="author-thumb" src="{% static 'images/demopic/1.jpg' %}" alt="Sal"></a>
-								</span>
 								<span class="author-meta">
 								<span class="post-name"><a href="{% url 'profile' post.author.id %}">{{post.author}}</a></span><br/>
 								<span class="post-date">updated: {{post.update|timesince}} ago</span><span class="dot"></span> <span class="post-read">{{post.liked.count}} {% if post.liked.count > 1%} likes {% else %} like {% endif %}</span> <br>		
@@ -87,9 +84,6 @@
 				<h4 class="card-text">{{post.post|truncatewords:20}}</h4>
 				<div class="metafooter">
 					<div class="wrapfooter">
-						<span class="meta-footer-thumb">
-						<a href="{% url 'profile' post.author.id %}"><img class="author-thumb" src="{% static 'images/demopic/5.jpg' %}" alt="Sal"></a>
-						</span>
 						<span class="author-meta">
 						<span class="post-name"><a href="{% url 'profile' post.author.id %}">{{post.author}}</a></span><br/>
 						<span class="post-date">{{post.created|timesince}}</span><span class="dot"></span><span class="post-read">{{post.liked.count}} {% if post.liked.count > 1%} likes {% else %} like {% endif %}</span> <br>
