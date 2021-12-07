@@ -1,0 +1,188 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+	h3{
+		padding-left: 40px;
+		font-weight: bolder;
+		text-decoration: underline;
+	}
+</style>
+<!-- Begin Article
+================================================== -->
+<div class="container">
+	<div class="row">
+
+		<!-- Begin Post -->
+		<div class="col-md-8 col-md-offset-2 col-xs-12">
+			<div class="mainheading">
+
+				<!-- Begin Top Meta -->
+				<div class="row post-top-meta">
+					<div class="col-md-2">
+						<!-- <a href="{% url 'profile' my_post.author.id %}"><img class="author-thumb" src="{% static 'images/demopic/4.jpg' %}" alt="Sal"></a> -->
+					</div>
+					<div class="col-md-10">
+						<a class="link-dark" href="{% url 'profile' my_post.author.id %}"><h4>@{{my_post.author}}</h4></a>
+						<p>
+							<h5> {{my_post.author.first_name}} {{my_post.author.last_name}} <br>
+							Joined: {{my_post.author.date_joined|timesince}} ago <br>
+							email: {{my_post.author.email}} <br>
+						</h5>
+						<!-- <a target="_blank" href="" class="btn follow">Follow</a> -->
+						
+					</div>
+				</div>
+				<!-- End Top Menta -->
+				
+				<h1 class="posttitle">{{my_post.Topic}}</h1>
+				<form action="{% url 'like_post' %}" method="post">
+					<input type="hidden" name="post_id" value="{{my_post.id}}">
+					{% if request.user not in liked_people %}
+					<button type="submit" name="like" class="btn follow" value="submit">Like</button>
+					{% else %}
+					<button type="submit" name="like" value="submit" class="btn follow">unike</button>
+					{% endif %}
+					{% csrf_token %}
+				</form>
+				</p>
+				<span class="">{{my_post.created|timesince}} ago</span><span class="dot"></span><span class="post-read">{{liked_people.count}} {% if liked_people.count > 1%} likes {% else %} like {% endif %}</span> <br>
+				{% if request.user == my_post.author %}						
+						<span class=""><a href="{% url 'edit' my_post.id %}">edit</a></span> - 
+						<span class=""><a href="{% url 'delete' my_post.id %}">delete</a></span><br/>
+				{% endif %}
+
+			</div>
+
+			<!-- Begin Featured Image -->
+			<img class="featured-image img-fluid" src="
+			{% if my_post.image != None %}
+			{{my_post.image.url}}
+			{% else %}
+			{{pass}}
+			{% endif %}">
+			<!-- End Featured Image -->
+
+			<!-- Begin Post Content -->
+			<div class="article-post">
+				<p>
+					{{my_post.post}}
+				</p>
+			</div>
+			<!-- End Post Content -->
+
+			<!-- Begin Tags -->
+			<!-- <div class="after-post-tags">
+				<ul class="tags">
+					<li><a href="#">Design</a></li>
+					<li><a href="#">Growth Mindset</a></li>
+					<li><a href="#">Productivity</a></li>
+					<li><a href="#">Personal Growth</a></li>
+				</ul>
+			</div> -->
+			<!-- End Tags -->
+
+		</div>
+		<!-- End Post -->
+
+	</div>
+</div>
+<!-- End Article
+================================================== -->
+
+<div class="hideshare"></div>
+<!-- Begin Related
+================================================== -->
+<h3>Related Posts</h3>
+{% for post in posts %}
+			
+<div class="graybg">
+	<div class="container">
+		<div class="row listrecent listrelated">
+			{% if post.id != my_post.id%}
+			<!-- begin post -->
+			<div class="col-md-4">
+				<div class="card">
+					<a href="{% url 'post' post.id %}">
+					<img class="img-fluid img-thumb" src="
+					{% if post.image != None %}
+					{{post.image.url}}
+					{% else %}
+					{{pass}}
+					{% endif %}" alt="">
+					</a>
+					<div class="card-block">
+						<h2 class="card-title"><a href="{% url 'post' post.id%}">{{post.Topic|truncatewords:3}}</a></h2>
+						<h4 class="card-text">{{post.post|truncatewords:20}}</h4>
+						<div class="metafooter">
+							<div class="wrapfooter">
+								<span class="meta-footer-thumb">
+								<a href="{% url 'profile' post.author.id %}"><img class="author-thumb" src="{% static 'images/demopic/9.jpg' %}" alt="Sal"></a>
+								</span>
+								<span class="author-meta">
+								<span class="post-name"><a href="{% url 'profile' post.author.id %}">{{post.author}}</a></span><br/>
+								<span class="post-date">{{post.created|timesince}} ago</span><span class="dot"></span><span class="post-read">{{post.liked.count}} {% if post.liked.count > 1%} likes {% else %} like {% endif %}</span> <br>
+								</span> <br>
+								{% if request.user == post.author %}						
+								<span class="post-name"><a href="{% url 'edit' post.id %}">edit</a></span> - 
+								<span class="post-name"><a href="{% url 'delete' post.id %}">delete</a></span><br/>
+								{% endif %}
+								<span class="post-read-more"><a href="post.html" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			{% endfor %}
+			<!-- end post -->
+<!-- End Related Posts
+================================================== -->
+
+<!-- Begin Twitter Timeline
+================================================== -->
+<div class="container margtop3rem">
+<a class="twitter-grid" href="https://twitter.com/TwitterDev/timelines/539487832448843776">WowThemesNet Tweets</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<!-- End Twitter Timeline
+================================================== -->
+
+<!-- Begin AlertBar
+================================================== -->
+<!-- <div class="alertbar">
+	<div class="container text-center">
+		<img src="assets/img/logo.png" alt=""> &nbsp; Never miss a <b>story</b> from us, get weekly updates in your inbox. <a href="#" class="btn subscribe">Get Updates</a>
+	</div>
+</div> -->
+<!-- End AlertBar
+================================================== -->
+
+<!-- Begin Footer
+================================================== -->
+<div class="container">
+	<div class="footer">
+		<p class="pull-left">
+			 Copyright &copy; 2017 Your Website Name
+		</p>
+		<p class="pull-right">
+			 Mediumish Theme by <a target="_blank" href="https://www.wowthemes.net">WowThemes.net</a>
+		</p>
+		<div class="clearfix">
+		</div>
+	</div>
+</div>
+<!-- End Footer
+================================================== -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="assets/js/mediumish.js"></script>
+</body>
+</html>
+{% endblock %}

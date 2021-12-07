@@ -1,0 +1,81 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block title %}
+{% static 'base/onyi.css' %}
+{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+.onyi-body{
+    background-color: lightblue;
+}
+.onyiform{
+    margin-left: 30px;
+}
+
+.onyi-form{
+    padding: 50px;
+}
+
+.onyi-post textarea{
+    width: 100%;
+    height: 50rem;
+}
+
+.onyi-topic{
+    padding: 20px 0 20px 0;
+}
+.onyi-post button{
+    height: 3rem;
+    width: 6rem;
+    font-size: 15px;
+    border-radius: 5%;
+}
+.onyi-post button:hover{
+    color: white;
+    background-color: green;
+}
+
+.onyi-form h1{
+    text-align: center;
+}
+
+.onyi-post h1{
+    text-align: left;
+
+}
+</style>
+<body class="onyi-body">
+          
+    <form  action="" method="post" enctype="multipart/form-data" class="onyiform">
+        {% csrf_token %}
+        <div class= "onyi-form" >
+            <h1>Create Post</h1>
+            <div class="onyi-topic">
+                <h4>Author: @{{request.user}} </h4> <br>
+                <label for="Topic"> Topic </label>
+               <input type="text" name="Topic" placeholder="Select Topic" required>
+            </div>
+            Image: {{form.image}} 
+            <br> <br>
+        <div class="onyi-post">
+            <h5>Body</h5>
+        <textarea name="post"  required></textarea> <br>
+        
+        <button> Create </button>
+        </div>
+        </div>
+    </form>
+{% endblock %}
+
+</body>
+</html>

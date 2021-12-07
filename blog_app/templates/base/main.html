@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="{% static 'images/favicon.png' %}">
+<title>Mediumish - A Medium style template by WowThemes.net</title>
+<!-- Bootstrap core CSS -->
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<!-- Fonts -->
+<link href="{static 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' %}" rel="stylesheet">
+<link href="{% static 'https://fonts.googleapis.com/css?family=Righteous' %}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="{% static 'css/mediumish.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% block title%} {% endblock %}">
+</head>
+<body>
+
+<!-- Begin Nav ================================================== -->
+<nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
+<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="container">
+	<!-- Begin Logo -->
+	<a class="navbar-brand" href="{% url 'home' %}">
+	<img src="{% static 'images/logo.png' %}" alt="logo">
+	</a>
+	<!-- End Logo -->
+	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+		<!-- Begin Menu -->
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item active">
+			<a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+			</li>
+			{% if request.user.is_authenticated %}
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'profile' request.user.id %}">Profile</a>
+				</li>
+			<li class="nav-item">
+			<a class="nav-link" href="{% url 'log-out' %}">Log-out</a>
+			</li>
+			<li class="nav-item">
+				<a class= "nav-link" href="{% url 'create' %}">Create Post</a>
+			</li>
+			{% else %}
+			<li class="nav-item">
+			<a class="nav-link" href="{% url 'Login' %}">Log-in</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'register' %}">Sign-up</a>
+				</li>
+			{% endif %}
+		</ul>
+		<!-- End Menu -->
+</div>
+</nav>
+<!-- End Nav
+================================================== -->
+
+{% block content %}
+
+{% endblock %}
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js' %}" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static '/js/ie10-viewport-bug-workaround.js' %}"></script>

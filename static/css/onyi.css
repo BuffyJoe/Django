@@ -1,0 +1,39 @@
+.onyi-body{
+    background-color: white;
+}
+.onyiform{
+    margin-left: 30px;
+}
+
+.onyi-form{
+    padding: 50px;
+}
+
+.onyi-post textarea{
+    width: 100%;
+    height: 50rem;
+}
+
+.onyi-topic{
+    padding: 20px 0 20px 0;
+}
+.onyi-post button{
+    height: 3rem;
+    width: 6rem;
+    font-size: 15px;
+    border-radius: 5%;
+}
+.onyi-post button:hover{
+    color: white;
+    background-color: green;
+}
+
+.onyi-form h1{
+    text-align: center;
+    text-decoration: underline;
+}
+
+.onyi-post h1{
+    text-align: left;
+
+}
