@@ -3,7 +3,7 @@ from django.urls import path
 from blog_app.forms import postform
 from . import views
 urlpatterns = [
-    path('home/', views.index, name='home'),
+    path('', views.index, name='home'),
     path('post/<int:pk>/', views.postview, name='post'),
     path('edit/<int:pk>/', views.edit, name='edit'),
     path('login/', views.Loginpage, name='Login'),
