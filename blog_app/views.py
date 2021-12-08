@@ -63,7 +63,7 @@ def edit(request, pk):
      posts = post.objects.get(id=pk)
      form = postform(instance=posts)
      if request.method == 'POST':
-        form = postform(request.POST, request.FILES)
+        form = postform(request.POST, request.FILES, instance=posts)
         if form.is_valid():
           new_form = form.save(commit=False)
           new_form.author = request.user
